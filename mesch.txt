@@ -1,0 +1,147 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class wireframe : MonoBehaviour
+{
+    public GoogleARCore.Examples.AugmentedFaces.ARCoreAugmentedFaceMeshFilter _source;
+
+    private Mesh _face;
+    private Mesh _mesh;
+    private Vector3[] _vertices;
+    public Text text;
+    public Text text1;
+    public Text text2;
+    public Text text3;
+    public Text text4;
+    public Text text5;
+    public Text text6;
+    public Text text7;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _face = _source.GetComponent<MeshFilter>().mesh;
+        _mesh = GetComponent<MeshFilter>().mesh;
+        int count = _mesh.triangles.Length;
+        _vertices = new Vector3[count];
+
+        _vertices = new Vector3[count];
+        var _wireframe_indices = new int[count];
+        var _wireframe_uvs = new Vector2[count];
+        for (var i = 0; i < count; i += 3)
+        {
+            _wireframe_indices[i] = i;
+            _wireframe_indices[i + 1] = i + 1;
+            _wireframe_indices[i + 2] = i + 2;
+            _wireframe_uvs[i]   = new Vector2(0f, 0f);
+            _wireframe_uvs[i+1] = new Vector2(1f, 0f);
+            _wireframe_uvs[i+2] = new Vector2(0f, 1f);
+        }
+        _mesh.Clear();
+        _mesh.vertices = _vertices;
+        _mesh.uv = _wireframe_uvs;
+        _mesh.triangles = _wireframe_indices;
+        _mesh.RecalculateBounds();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        var tri = _face.triangles;
+        var vtx = _face.vertices;
+        for (int i = 0; i < tri.Length; i += 3)
+        
+        //for (int i = 0; i < 30; i += 3)
+        {
+            int i0 = tri[i];
+            int i1 = tri[i + 1];
+            int i2 = tri[i + 2];
+            _vertices[i] = vtx[i0];
+            _vertices[i + 1] = vtx[i1];
+            _vertices[i + 2] = vtx[i2];
+            //text.text = (_face.triangles[i]).ToString();
+        }
+        vtx[168][0] += 0.3f;
+        _vertices[168] = vtx[168];
+        /*
+        for (int i = 30; i < 36; i += 3)
+        {
+            int i0 = tri[i];
+            int i1 = tri[i + 1];
+            int i2 = tri[i + 2];
+            _vertices[i] = vtx[i0];
+            _vertices[i + 1] = vtx[i1];
+            _vertices[i + 2] = vtx[i2];
+        }
+        */
+
+        //var length = vtx[12][0] - vtx[15][0];//0000
+        //var length1 = vtx[12][1] - vtx[15][1];//0000
+        //var length2 = vtx[12][2] - vtx[15][2];//0000
+
+        /*Œû‚¾‚¯
+        vtx[30][0] += 0.1f;
+        _vertices[30] = vtx[30];
+        var length = vtx[30];
+
+        var length1 = vtx[31];
+        var length2 = vtx[32];
+        var length3 = vtx[33];
+        var length4 = vtx[34];
+        var length5 = vtx[35];
+       */
+
+        //var length1 = vtx[30][0] - vtx[33][0];//0.0026~8
+        //var length1 = vtx[30][0] - vtx[33][0];//0.033~35
+
+        //        var length1 = vtx[31][0] - vtx[34][0];//0.
+        //      var length2 = vtx[13][0] - vtx[16][0];//0000
+
+        /*
+        text.text = (length).ToString("f4");
+        text1.text = (length1).ToString("f4");
+        text2.text = (length2).ToString("f4");
+        text3.text = (length3).ToString("f4");
+        text4.text = (length4).ToString("f4");
+        text5.text = (length5).ToString("f4");
+
+        */
+        text.text = (vtx.Length).ToString("f4");
+        text1.text = (tri[0]).ToString("f4") +","+ (tri[1]).ToString("f4") + "," + (tri[2]).ToString("f4");
+        text2.text = (tri[3]).ToString("f4") + "," + (tri[4]).ToString("f4") + "," + (tri[5]).ToString("f4");
+        text3.text = (tri[6]).ToString("f4") + "," + (tri[7]).ToString("f4") + "," + (tri[8]).ToString("f4");
+        /*
+        for (int a =0; a < 36; a++)
+        {
+            ((text)+a.ToString()).text = (tri[a]).ToString("f4") + "," + (tri[a+1]).ToString("f4") + "," + (tri[a+2]).ToString("f4");
+        }
+        */
+        text4.text = (tri[9]).ToString("f4") + "," + (tri[10]).ToString("f4") + "," + (tri[11]).ToString("f4");
+        text5.text = (tri[12]).ToString("f4") + "," + (tri[13]).ToString("f4") + "," + (tri[14]).ToString("f4");
+        text6.text = (tri[15]).ToString("f4") + "," + (tri[16]).ToString("f4") + "," + (tri[17]).ToString("f4");
+
+        /*
+        int i0 = tri[0];
+        int i1 = tri[1];
+        int i2 = tri[2];
+        _vertices[0] = vtx[i0];
+        _vertices[0 + 1] = vtx[i1];
+        _vertices[0 + 2] = vtx[i2];
+    */
+
+
+        //text.text = (_vertices[0]).ToString("f4");
+        //text1.text = (_vertices[100]).ToString("f4");
+        //text2.text = (_vertices[200]).ToString("f4");
+        //text3.text = (_vertices[300]).ToString("f4");
+        //text4.text = (_vertices[400]).ToString("f4");
+        //text5.text = (_vertices[500]).ToString("f4");
+        //text6.text = (_vertices[600]).ToString("f4");
+        text7.text = (vtx.Length).ToString("f4");
+
+        _mesh.vertices = _vertices;
+        _mesh.RecalculateBounds();
+    }
+}
