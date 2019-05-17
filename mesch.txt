@@ -18,10 +18,16 @@ public class wireframe : MonoBehaviour
     public Text text5;
     public Text text6;
     public Text text7;
+    public Text text8;
+
+    int mouth = 0;
+    int switch_mouth = 1;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        
         _face = _source.GetComponent<MeshFilter>().mesh;
         _mesh = GetComponent<MeshFilter>().mesh;
         int count = _mesh.triangles.Length;
@@ -44,6 +50,8 @@ public class wireframe : MonoBehaviour
         _mesh.uv = _wireframe_uvs;
         _mesh.triangles = _wireframe_indices;
         _mesh.RecalculateBounds();
+        text7.text = "off";
+
     }
 
     // Update is called once per frame
@@ -51,9 +59,9 @@ public class wireframe : MonoBehaviour
     {
         var tri = _face.triangles;
         var vtx = _face.vertices;
-        for (int i = 0; i < tri.Length; i += 3)
-        
-        //for (int i = 0; i < 30; i += 3)
+        //for (int i = 0; i < tri.Length; i += 3)
+
+        for (int i = 0; i < 160; i += 3)
         {
             int i0 = tri[i];
             int i1 = tri[i + 1];
@@ -63,8 +71,24 @@ public class wireframe : MonoBehaviour
             _vertices[i + 2] = vtx[i2];
             //text.text = (_face.triangles[i]).ToString();
         }
-        vtx[168][0] += 0.3f;
-        _vertices[168] = vtx[168];
+        /*        
+                vtx[tri[0]][1] = 0.0001f;//(x,y,z?)
+                _vertices[0] = vtx[tri[0]];
+
+                vtx[tri[6]][0] = 0.00f;//(x,y,z?)
+                _vertices[3] = vtx[tri[3]];
+
+
+                vtx[tri[27]][2] = 0.01f;//(x,y,z?)
+                _vertices[27] = vtx[tri[27]];
+
+                vtx[tri[14]][2] = -0.01f;//(x,y,z?)
+                _vertices[14] = vtx[tri[14]];
+
+                vtx[tri[34]][0] = 0.01f;//(x,y,z?)
+                _vertices[34] = vtx[tri[34]];
+          */
+
         /*
         for (int i = 30; i < 36; i += 3)
         {
@@ -76,6 +100,7 @@ public class wireframe : MonoBehaviour
             _vertices[i + 2] = vtx[i2];
         }
         */
+
 
         //var length = vtx[12][0] - vtx[15][0];//0000
         //var length1 = vtx[12][1] - vtx[15][1];//0000
@@ -108,20 +133,30 @@ public class wireframe : MonoBehaviour
         text5.text = (length5).ToString("f4");
 
         */
+
+        /*
         text.text = (vtx.Length).ToString("f4");
         text1.text = (tri[0]).ToString("f4") +","+ (tri[1]).ToString("f4") + "," + (tri[2]).ToString("f4");
-        text2.text = (tri[3]).ToString("f4") + "," + (tri[4]).ToString("f4") + "," + (tri[5]).ToString("f4");
-        text3.text = (tri[6]).ToString("f4") + "," + (tri[7]).ToString("f4") + "," + (tri[8]).ToString("f4");
-        /*
-        for (int a =0; a < 36; a++)
-        {
-            ((text)+a.ToString()).text = (tri[a]).ToString("f4") + "," + (tri[a+1]).ToString("f4") + "," + (tri[a+2]).ToString("f4");
-        }
+        text2.text = (tri[21]).ToString("f4") + "," + (tri[22]).ToString("f4") + "," + (tri[23]).ToString("f4");
+        text3.text = (tri[24]).ToString("f4") + "," + (tri[25]).ToString("f4") + "," + (tri[26]).ToString("f4");
         */
-        text4.text = (tri[9]).ToString("f4") + "," + (tri[10]).ToString("f4") + "," + (tri[11]).ToString("f4");
-        text5.text = (tri[12]).ToString("f4") + "," + (tri[13]).ToString("f4") + "," + (tri[14]).ToString("f4");
-        text6.text = (tri[15]).ToString("f4") + "," + (tri[16]).ToString("f4") + "," + (tri[17]).ToString("f4");
 
+        /*
+        text1.text = (tri[18]).ToString("f4") + "," + (tri[19]).ToString("f4") + "," + (tri[20]).ToString("f4");
+        text2.text = (tri[21]).ToString("f4") + "," + (tri[22]).ToString("f4") + "," + (tri[23]).ToString("f4");
+        text3.text = (tri[24]).ToString("f4") + "," + (tri[25]).ToString("f4") + "," + (tri[26]).ToString("f4");
+        */
+        /*
+       for (int a =0; a < 500; a++)
+       {
+           text7.text += (tri[a]).ToString("f4") + "," + (tri[a+1]).ToString("f4") + "," + (tri[a+2]).ToString("f4");
+       }
+       */
+        /*
+        text4.text = (tri[27]).ToString("f4") + "," + (tri[28]).ToString("f4") + "," + (tri[29]).ToString("f4");
+        text5.text = (tri[30]).ToString("f4") + "," + (tri[31]).ToString("f4") + "," + (tri[32]).ToString("f4");
+        text6.text = (tri[33]).ToString("f4") + "," + (tri[34]).ToString("f4") + "," + (tri[35]).ToString("f4");
+        */
         /*
         int i0 = tri[0];
         int i1 = tri[1];
@@ -132,16 +167,72 @@ public class wireframe : MonoBehaviour
     */
 
 
+        var length = vtx[69][1] - vtx[36][1];//0.0026~8
+        var length1 = vtx[10][1] - vtx[152][1];//äÁëSëÃÇÃÇôÇÃí∑Ç≥
+
+        var length_mouth = vtx[13][1] - vtx[14][1];
+
+
+        if (length_mouth > 0.005)
+        {
+            mouth += 1;
+            if (mouth > 15)
+            {
+                text7.text ="on";
+                text7.color = new Color(250f / 255f, 255f / 255f, 255f / 255f);
+                switch_mouth += 1;
+                mouth = 0;
+            }
+         
+        }
+
+        text.text = (length).ToString("f4");
+        text1.text = (length / length1).ToString("f4");
+        text2.text = (length / length1 - 0.4).ToString("f4");
         //text.text = (_vertices[0]).ToString("f4");
-        //text1.text = (_vertices[100]).ToString("f4");
-        //text2.text = (_vertices[200]).ToString("f4");
-        //text3.text = (_vertices[300]).ToString("f4");
-        //text4.text = (_vertices[400]).ToString("f4");
-        //text5.text = (_vertices[500]).ToString("f4");
+        //text1.text = (_vertices[3]).ToString("f4");
+        //text2.text = (_vertices[14]).ToString("f4");
+
+
+        //text3.text = (_vertices[27]).ToString("f4");
+        //text4.text = (_vertices[34]).ToString("f4");
+        //text5.text = (_vertices[32]).ToString("f4");
+        text5.text = "switch_mouth"+switch_mouth.ToString("f4"); 
+
+        if (switch_mouth %2 == 0)
+        {
+
+            text8.fontSize = (int)((length / length1 - 0.4f) * 100f) * 7;
+            float real = (float)((length / length1 - 0.4) * 10 * 100);
+            text8.color = new Color(5 * real / 255f, 68f / 255f, 205f / 255f);
+
+        }else{
+            text7.text = "off";
+            text7.color = new Color(150f / 255f, 0f / 255f, 0f / 255f);
+
+            text8.color = new Color(150f / 255f, 0f / 255f, 0f / 255f);
+        }
+        //text.text = vtx[10].ToString("f4") + vtx[21].ToString("f4");
+        //text1.text = vtx[251].ToString("f4") + vtx[152].ToString("f4");
+        //text2.text = vtx[5].ToString("f4") + vtx[21].ToString("f4");
+
+
+
         //text6.text = (_vertices[600]).ToString("f4");
-        text7.text = (vtx.Length).ToString("f4");
+        text6.text = mouth.ToString("f4");
+        //text7.text = (vtx.Length).ToString("f4");
+
+
+        var center = _source.AumgnetedFace.CenterPose;
+        text4.text = "center:"+center.ToString("f2");
+
+        text3.text = center.ToString("f2");
+        //var b = _source.AumgnetedFace.GetVertices(vtx);
+
+        text5.text = "å˚ÇÃäJÇ´ÅF"+length_mouth.ToString();
 
         _mesh.vertices = _vertices;
         _mesh.RecalculateBounds();
     }
+    
 }
