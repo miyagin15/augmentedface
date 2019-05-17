@@ -176,10 +176,11 @@ public class wireframe : MonoBehaviour
         if (length_mouth > 0.005)
         {
             mouth += 1;
+
             if (mouth > 15)
             {
                 text7.text ="on";
-                text7.color = new Color(250f / 255f, 255f / 255f, 255f / 255f);
+                text7.color = new Color(0f / 255f, 155f / 255f, 155f / 255f);
                 switch_mouth += 1;
                 mouth = 0;
             }
@@ -201,16 +202,16 @@ public class wireframe : MonoBehaviour
 
         if (switch_mouth %2 == 0)
         {
-
             text8.fontSize = (int)((length / length1 - 0.4f) * 100f) * 7;
             float real = (float)((length / length1 - 0.4) * 10 * 100);
             text8.color = new Color(5 * real / 255f, 68f / 255f, 205f / 255f);
 
         }else{
             text7.text = "off";
-            text7.color = new Color(150f / 255f, 0f / 255f, 0f / 255f);
+            text7.color = new Color(0f / 255f, 0f / 255f, 0f / 255f);
 
-            text8.color = new Color(150f / 255f, 0f / 255f, 0f / 255f);
+            text8.color = new Color(0f / 255f, 0f / 255f, 0f / 255f);
+
         }
         //text.text = vtx[10].ToString("f4") + vtx[21].ToString("f4");
         //text1.text = vtx[251].ToString("f4") + vtx[152].ToString("f4");
@@ -227,6 +228,7 @@ public class wireframe : MonoBehaviour
         text4.text = "center:"+center.ToString("f2");
 
         text3.text = center.ToString("f2");
+
         //var b = _source.AumgnetedFace.GetVertices(vtx);
 
         text5.text = "å˚ÇÃäJÇ´ÅF"+length_mouth.ToString();
